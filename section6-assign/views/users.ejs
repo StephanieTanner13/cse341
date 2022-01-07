@@ -1,0 +1,24 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+    <header class="main-header main-header-community">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a href="/">Signup</a></li>
+                <li class="main-header__item"><a class="active" href="/users">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="community-page">
+        <h2>Welcome to the Community!</h2>
+        <% if (users.length > 0) { %>
+            <ul>
+                <% users.forEach((user) => { %>
+                    <li><%= user.name %></li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <h1>No Users Found!</h1>
+        <% } %>
+    </main>
+    <%- include('includes/end.ejs') %>
