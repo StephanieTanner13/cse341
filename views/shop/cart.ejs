@@ -1,0 +1,41 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/cart.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <h2>Please Review The items in your order.</h2>
+            <% if (products.length > 0) { %>
+                <ul class="cart__item-list">
+                    <% products.forEach(p => { %>
+                        <li class="cart__item">
+                            <h1><%= p.productId.title %></h1>
+                            <h2>Quantity: <%= p.quantity %></h2>
+                            <form action="/cart-delete-item" method="POST">
+                                <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="btn danger" type="submit">Delete</button>
+                            </form>
+                        </li>
+                    <% }) %>
+                </ul>
+                <hr>
+                <div class="centered">
+                    <form class="order-form" action="/create-order" method="POST">
+                        <h2>Please select the day and time for your items to be delivered.</h2>
+                        <label for="eventDate">Event Date:</label>
+                        <input type="date" id="eventDate" name="eventday" min="2022-01-01" max="2025-12-31"><br>
+                        <label for="dropoffTime">Dropoff Time:</label>
+                        <input type="time" id="dropoffTime" name="eventtime" min="07:00" max="18:00" required><br>
+                        <!-- I want to add in the option of selecting a day and time for drop off to this page -->
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit" class="btn">Order Now!</button>
+                    </form>
+                </div>
+                
+            <% } else { %>
+                <h1>No Products in Cart!</h1>
+            <% } %>
+        </main>
+        <%- include('../includes/end.ejs') %>
