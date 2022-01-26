@@ -7,11 +7,15 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+const cors = require('cors');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 const MONGODB_URI =
+  'mongodb+srv://Stephanie:mFtKj6nKLfV3iyQG@cluster0.f4ift.mongodb.net/shop';
+
+const MONGODB_URL =
   'mongodb+srv://Stephanie:mFtKj6nKLfV3iyQG@cluster0.f4ift.mongodb.net/shop';
 
 const app = express();
@@ -84,6 +88,16 @@ app.use((error, req, res, next) => {
   });
 });
 
+const options = {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  family: 4
+ };
+
+ const PORT = process.env.PORT || 3000;
+ 
   mongoose
   .connect(
     MONGODB_URL, options
