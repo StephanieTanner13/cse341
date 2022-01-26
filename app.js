@@ -84,10 +84,12 @@ app.use((error, req, res, next) => {
   });
 });
 
-mongoose
-  .connect(MONGODB_URI)
+  mongoose
+  .connect(
+    MONGODB_URL, options
+  )
   .then(result => {
-    app.listen(3000);
+    app.listen(PORT);
   })
   .catch(err => {
     console.log(err);
